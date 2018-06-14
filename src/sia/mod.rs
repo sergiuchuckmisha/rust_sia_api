@@ -1,1 +1,3 @@
-//module contains commands to interact with siapub mod wallet;
+//module contains commands to interact with sia
+
+pub mod wallet;
