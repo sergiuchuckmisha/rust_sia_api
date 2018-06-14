@@ -4,10 +4,11 @@
 
 extern crate sha1;
 
+mod sia;
 mod call_win_cmd_command;
-use call_win_cmd_command::call_cmd_comand;
-
 mod servant;
+
+use call_win_cmd_command::call_cmd_comand;
 use servant::run_server;
 
 fn main() {

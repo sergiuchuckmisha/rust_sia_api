@@ -30,7 +30,8 @@ fn echo(req: Request<Body>) -> BoxFut {
         }
 
         (&Method::GET, "/addresses") => {
-            *response.body_mut() = Body::from("Try POSTing data to /echo");
+//            *response.body_mut() = Body::from(get_addresses());
+            *response.body_mut() = Body::from(super::sia::wallet::get_addresses_2());
         }
 
         // Simply echo the body back to the client.
