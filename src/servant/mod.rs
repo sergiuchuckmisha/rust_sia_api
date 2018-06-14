@@ -6,7 +6,7 @@ extern crate futures;
 extern crate hyper;
 
 use self::futures::future;
-use self::hyper::rt::{Future, Stream};
+use self::hyper::rt::{Future};
 use self::hyper::service::service_fn;
 use self::hyper::{Body, Method, Request, Response, Server, StatusCode};
 
@@ -26,7 +26,7 @@ fn echo(req: Request<Body>) -> BoxFut {
     match (req.method(), req.uri().path()) {
         // Serve some instructions at /
         (&Method::GET, "/") => {
-            *response.body_mut() = Body::from("Try POSTing data to /echo");
+            *response.body_mut() = Body::from("Try see currend address(es) /address(es)");
         }
 
         (&Method::GET, "/addresses") => {
@@ -37,39 +37,6 @@ fn echo(req: Request<Body>) -> BoxFut {
         (&Method::GET, "/address") => {
 //            *response.body_mut() = Body::from(get_addresses());
             *response.body_mut() = Body::from(super::sia::wallet::get_first_address());
-        }
-
-        // Simply echo the body back to the client.
-        (&Method::POST, "/echo") => {
-            *response.body_mut() = req.into_body();
-        }
-
-        // Convert to uppercase before sending back to client.
-        (&Method::POST, "/echo/uppercase") => {
-            let mapping = req.into_body().map(|chunk| {
-                chunk
-                    .iter()
-                    .map(|byte| byte.to_ascii_uppercase())
-                    .collect::<Vec<u8>>()
-            });
-
-            *response.body_mut() = Body::wrap_stream(mapping);
-        }
-
-        // Reverse the entire body before sending back to the client.
-        //
-        // Since we don't know the end yet, we can't simply stream
-        // the chunks as they arrive. So, this returns a different
-        // future, waiting on concatenating the full body, so that
-        // it can be reversed. Only then can we return a `Response`.
-        (&Method::POST, "/echo/reversed") => {
-            let reversed = req.into_body().concat2().map(move |chunk| {
-                let body = chunk.iter().rev().cloned().collect::<Vec<u8>>();
-                *response.body_mut() = Body::from(body);
-                response
-            });
-
-            return Box::new(reversed);
         }
 
         // The 404 Not Found route...

@@ -8,8 +8,6 @@ authors = ["sergiuchuckmisha <caga3@inbox.ru>"]
 sha1 = "0.3"
 #tiny-keccak = "1.4.0"
 #base64 = "0.9.0"
-#serde = "1.0"
-#serde_json = "1.0"
 rustc-serialize = "0.3"
 
 futures = "0.1.21"
