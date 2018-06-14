@@ -34,6 +34,11 @@ fn echo(req: Request<Body>) -> BoxFut {
             *response.body_mut() = Body::from(super::sia::wallet::get_addresses_2());
         }
 
+        (&Method::GET, "/address") => {
+//            *response.body_mut() = Body::from(get_addresses());
+            *response.body_mut() = Body::from(super::sia::wallet::get_first_address());
+        }
+
         // Simply echo the body back to the client.
         (&Method::POST, "/echo") => {
             *response.body_mut() = req.into_body();
