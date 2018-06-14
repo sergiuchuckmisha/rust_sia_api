@@ -1,0 +1,1 @@
+[package]name = "rust_sia_api"version = "0.1.0"authors = ["sergiuchuckmisha <caga3@inbox.ru>"][dependencies]#stdweb = "*"sha1 = "0.3"#tiny-keccak = "1.4.0"#base64 = "0.9.0"#serde = "1.0"#serde_json = "1.0"futures = "0.1.21"hyper = "0.12.1"
